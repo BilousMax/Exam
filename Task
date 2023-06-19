@@ -1,0 +1,109 @@
+// Створити інтерфейс Lamp. Він має містити дані про освітлювальний прилад: тип, виробник, потужність у люменах, вид та кількість освітлювальних елементів.
+// Інтерфейс має включати методи для друку на екрані значень цих даних та зміну потужності. 
+// Створити інтерфейс Camera. Він має містити дані про фото прилад: тип, виробник, світлочутливість оптичного об'єктиву.
+// Також інтерфейс має включати методи для друку на екрані значень цих даних та зміну світлочутливості. 
+// Створити клас PhotoStudio, який буде наслідувати описані вище інтерфейси. 
+// Створити мінімум два екземпляри даного класу.
+// Вивести на екран усі характеристики фото та світлового обладнання.
+// Змінити значення світлочутливості для одного об'єкту і вивести його на екран.
+using System;
+
+// Інтерфейс Lamp
+public interface ILamp
+{
+    string Type { get; set; }
+    string Manufacturer { get; set; }
+    int Power { get; set; }
+    string LightingType { get; set; }
+    int LightingElementsCount { get; set; }
+
+    void PrintInfo();
+    void ChangePower(int newPower);
+}
+
+// Інтерфейс Camera
+public interface ICamera
+{
+    string Type { get; set; }
+    string Manufacturer { get; set; }
+    int OpticalSensitivity { get; set; }
+
+    void PrintInfo();
+    void ChangeSensitivity(int newSensitivity);
+}
+
+// Клас PhotoStudio, який реалізує інтерфейси ILamp та ICamera
+public class PhotoStudio : ILamp, ICamera
+{
+    public string Type { get; set; }
+    public string Manufacturer { get; set; }
+    public int Power { get; set; }
+    public string LightingType { get; set; }
+    public int LightingElementsCount { get; set; }
+    public int OpticalSensitivity { get; set; }
+
+    public void PrintInfo()
+    {
+        Console.WriteLine("Lamp Info:");
+        Console.WriteLine("Type: " + Type);
+        Console.WriteLine("Manufacturer: " + Manufacturer);
+        Console.WriteLine("Power: " + Power);
+        Console.WriteLine("Lighting Type: " + LightingType);
+        Console.WriteLine("Lighting Elements Count: " + LightingElementsCount);
+
+        Console.WriteLine("\nCamera Info:");
+        Console.WriteLine("Type: " + Type);
+        Console.WriteLine("Manufacturer: " + Manufacturer);
+        Console.WriteLine("Optical Sensitivity: " + OpticalSensitivity);
+    }
+
+    public void ChangePower(int newPower)
+    {
+        Power = newPower;
+        Console.WriteLine("Lamp Power changed to: " + Power);
+    }
+
+    public void ChangeSensitivity(int newSensitivity)
+    {
+        OpticalSensitivity = newSensitivity;
+        Console.WriteLine("Camera Sensitivity changed to: " + OpticalSensitivity);
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Створюємо два екземпляри класу PhotoStudio
+        PhotoStudio studio1 = new PhotoStudio()
+        {
+            Type = "Studio Lamp",
+            Manufacturer = "XYZ Company",
+            Power = 1000,
+            LightingType = "LED",
+            LightingElementsCount = 4,
+            OpticalSensitivity = 800
+        };
+
+        PhotoStudio studio2 = new PhotoStudio()
+        {
+            Type = "On-camera Flash",
+            Manufacturer = "ABC Corporation",
+            Power = 500,
+            LightingType = "Xenon",
+            LightingElementsCount = 1,
+            OpticalSensitivity = 400
+        };
+
+        // Виводимо на екран характеристики фото та світлового обладнання
+        studio1.PrintInfo();
+        Console.WriteLine("-----------------------------");
+        studio2.PrintInfo();
+        Console.WriteLine("-----------------------------");
+
+        // Змінюємо значення світлочутливості для одного об'єкту і виводимо його на екран
+        studio1.ChangeSensitivity(600);
+        Console.WriteLine("-----------------------------");
+        studio1.PrintInfo();
+    }
+}
